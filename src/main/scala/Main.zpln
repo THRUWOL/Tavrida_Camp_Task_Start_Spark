@@ -1,0 +1,200 @@
+﻿{
+ "paragraphs": [
+  {
+   "text": "%spark\nimport org.apache.spark.sql.DataFrame\n\nimport scala.util.{Failure, Success, Try}\n\nobject FilePath{\n    val account = \"./files/resources/source/account.csv\"\n    val account_type = \"./files/resources/source/account_type.csv\"\n    val account_balance_history = \"./files/resources/source/account_balance_history.csv\"\n    val contract = \"./files/resources/source/contract.csv\"\n    val subj = \"./files/resources/source/subj.csv\"\n    val subj_indidfn = \"./files/resources/source/subj_indidfn.csv\"\n    val result = \"./files/resources/result/RCD1_TKP.csv\"\n}",
+   "user": "anonymous",
+   "dateUpdated": "2022-07-21T09:52:34+0000",
+   "config": {
+    "tableHide": false,
+    "editorSetting": {
+     "language": "scala",
+     "editOnDblClick": false,
+     "completionKey": "TAB",
+     "completionSupport": true
+    },
+    "colWidth": 12.0,
+    "editorMode": "ace/mode/scala",
+    "fontSize": 9.0,
+    "results": {
+     "0": {
+      "graph": {
+       "keys": [
+        {
+         "name": "family_name",
+         "index": 0.0,
+         "aggr": "sum"
+        }
+       ],
+       "groups": [],
+       "values": [
+        {
+         "name": "subj_sk",
+         "index": 3.0,
+         "aggr": "avg"
+        }
+       ],
+       "setting": {
+        "lineChart": {},
+        "pieChart": {
+         "showPercents": true
+        },
+        "multiBarChart": {},
+        "scatterChart": {
+         "xAxis": {
+          "name": "account_type_id",
+          "index": 0.0,
+          "aggr": "sum"
+         },
+         "yAxis": {
+          "name": "account_number",
+          "index": 1.0,
+          "aggr": "sum"
+         }
+        },
+        "stackedAreaChart": {}
+       },
+       "mode": "pieChart"
+      }
+     }
+    },
+    "enabled": true
+   },
+   "settings": {
+    "params": {
+     "bdtMeta": {
+      "inlay": {
+       "state": {
+        "currentPage": "Console"
+       }
+      }
+     }
+    },
+    "forms": {}
+   },
+   "apps": [],
+   "jobName": "paragraph_1658397154415_28831083",
+   "id": "20220721-095234_591651824",
+   "dateCreated": "2022-07-21T09:52:34+0000",
+   "dateStarted": "2022-07-21T09:52:34+0000",
+   "dateFinished": "2022-07-21T09:52:34+0000",
+   "status": "FINISHED",
+   "progressUpdateIntervalMs": 500.0
+  },
+  {
+   "text": "%spark\ndef createDataFrame(filePath: String): Try[DataFrame] = try {\n    val dataFrame = spark\n            .read\n            .format(\"csv\")\n            .option(\"header\", \"true\")\n            .load(filePath)\n    Success(dataFrame)\n} catch{case exception: Exception => Failure(exception)\n}\n\ndef showDataFrame(path: String) = createDataFrame(path) match {\n    case Success(dataFrame) => dataFrame.show() \n    case Failure(exception) => s\"$exception\"\n}\n",
+   "user": "anonymous",
+   "dateUpdated": "2022-07-21T09:52:34+0000",
+   "config": {
+    "editorHide": false,
+    "results": [
+     {
+      "keys": [
+       {
+        "name": "account_type_id",
+        "index": 0.0,
+        "aggr": "sum"
+       }
+      ],
+      "groups": [],
+      "values": [
+       {
+        "name": "account_number",
+        "index": 1.0,
+        "aggr": "avg"
+       }
+      ],
+      "setting": {
+       "lineChart": {}
+      },
+      "mode": "lineChart"
+     }
+    ]
+   },
+   "settings": {
+    "params": {
+     "bdtMeta": {
+      "inlay": {
+       "state": {
+        "currentPage": "Console"
+       }
+      }
+     }
+    },
+    "forms": {}
+   },
+   "apps": [],
+   "jobName": "paragraph_1658397154492_1066030129",
+   "id": "20220721-095234_771841397",
+   "dateCreated": "2022-07-21T09:52:34+0000",
+   "dateStarted": "2022-07-21T09:52:34+0000",
+   "dateFinished": "2022-07-21T09:52:34+0000",
+   "status": "FINISHED",
+   "progressUpdateIntervalMs": 500.0
+  },
+  {
+   "text": "%spark\nshowDataFrame(FilePath.account)\n",
+   "user": "anonymous",
+   "dateUpdated": "2022-07-21T09:53:21+0000",
+   "config": {
+    "results": [
+     {
+      "mode": "table"
+     }
+    ]
+   },
+   "settings": {
+    "params": {
+     "bdtMeta": {
+      "inlay": {
+       "state": {
+        "currentPage": "Table"
+       }
+      }
+     }
+    },
+    "forms": {}
+   },
+   "results": {
+    "code": "SUCCESS",
+    "msg": [
+     {
+      "type": "TEXT",
+      "data": "+---------------+--------------+-----------+---+\n|account_type_id|account_number|contract_id| id|\n+---------------+--------------+-----------+---+\n|              1|           201|        100| 11|\n|              2|           201|        101| 12|\n|              3|           201|        102| 13|\n|              4|           201|        103| 14|\n|              5|           201|        104| 15|\n|              6|           201|        105| 16|\n|              7|           201|        106| 17|\n|              8|           201|        107| 18|\n|              9|           201|        108| 19|\n|             10|           201|        109| 20|\n|             11|           201|        110| 21|\n|             12|           201|        111| 22|\n|             13|           201|        112| 23|\n|             14|           201|        113| 24|\n|             15|           201|        114| 25|\n|             16|           201|        115| 26|\n|             17|           201|        116| 27|\n+---------------+--------------+-----------+---+\n\nres78: Any = ()\n"
+     }
+    ]
+   },
+   "runtimeInfos": {
+    "jobUrl": {
+     "propertyName": "jobUrl",
+     "label": "SPARK JOB",
+     "tooltip": "View in Spark web UI",
+     "group": "spark",
+     "values": [
+      "http://f6bb9e1e980e:4040/jobs/job?id=402",
+      "http://f6bb9e1e980e:4040/jobs/job?id=403"
+     ],
+     "interpreterSettingId": "spark"
+    }
+   },
+   "apps": [],
+   "jobName": "paragraph_1658397201131_-1311497198",
+   "id": "20220721-095321_822112595",
+   "dateCreated": "2022-07-21T09:53:21+0000",
+   "dateStarted": "2022-07-21T09:53:21+0000",
+   "dateFinished": "2022-07-21T09:53:21+0000",
+   "status": "FINISHED",
+   "progressUpdateIntervalMs": 500.0
+  }
+ ],
+ "name": "Zeppelin Notebook",
+ "id": "",
+ "noteParams": {},
+ "noteForms": {},
+ "angularObjects": {},
+ "config": {
+  "isZeppelinNotebookCronEnable": false,
+  "looknfeel": "default",
+  "personalizedMode": "false"
+ },
+ "info": {}
+}
